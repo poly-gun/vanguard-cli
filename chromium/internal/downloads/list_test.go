@@ -1,14 +1,15 @@
-package chromium_test
+package downloads_test
 
 import (
 	"encoding/json"
 	"log/slog"
 	"os"
 	"testing"
-	"vanguard-interface/chromium"
+
+	"vanguard-interface/chromium/internal/downloads"
 )
 
-func TestLatest(t *testing.T) {
+func TestList(t *testing.T) {
 	const level = slog.LevelDebug
 
 	slog.SetLogLoggerLevel(level)
@@ -26,16 +27,9 @@ func TestLatest(t *testing.T) {
 	t.Run("JSON-Response", func(t *testing.T) {
 		ctx := t.Context()
 
-		v, e := chromium.Latest(ctx)
+		v, e := downloads.List(ctx)
 		if e != nil {
 			t.Errorf("Error: %v", e)
-		}
-
-		switch v.(type) {
-		case map[string]interface{}, []interface{}:
-			t.Logf("Verified Marshalled Response")
-		default:
-			t.Errorf("Unexpected type %T", v)
 		}
 
 		content, e := json.MarshalIndent(v, "", "    ")
@@ -45,7 +39,7 @@ func TestLatest(t *testing.T) {
 
 		t.Logf("Response:\n%s", string(content))
 
-		f, e := os.OpenFile("chromium-latest-response.json", os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0o644)
+		f, e := os.OpenFile("chromium-latest-response.json", os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0644)
 		if e != nil {
 			t.Fatalf("Unexpected Test Error: %v", e)
 		}
