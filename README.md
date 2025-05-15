@@ -7,7 +7,8 @@ Individual accounts provide relatively live investments, yet do not show percent
 
 Maybe there's a solution to extract this data; an easier means to see live changes throughout the day.
 
-> [!NOTE] **Disclaimer**
+> [!NOTE]
+> **Disclaimer**
 > I've been seeking a project that programmatically drives a browser session to perform some *marginally* useful task, written specifically in `go`; Go's
 > vendoring + binaries make CLIs incredibly easy to install. Additionally, I want to abstract external system requirements (i.e. browser driver(s) and versioning).
 
